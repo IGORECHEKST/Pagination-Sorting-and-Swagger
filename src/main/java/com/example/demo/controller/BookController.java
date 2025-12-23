@@ -21,35 +21,33 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    @Operation(summary = "Get all books", description = "Get a paginated and sorted " +
-            "list of all available books")
+    @Operation(summary = "Get all books", description = "Get a paginated and sorted list of books")
     public Page<BookDto> getAll(@ParameterObject Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get a book by ID", description = "Get a specific book's " +
-            "details by its unique identifier")
+    @Operation(summary = "Get a book by ID", description = "Get details of a specific book by its ID")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Create a new book", description = "Add a new book to the catalog")
+    @Operation(summary = "Create a new book", description = "Add a new book to the library")
     public BookDto createBook(@RequestBody CreateBookRequestDto bookDto) {
         return bookService.save(bookDto);
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update a book", description = "Update the details of an existing book by its ID")
+    @Operation(summary = "Update a book", description = "Update the details of an existing book")
     public BookDto updateBook(@PathVariable Long id, @RequestBody CreateBookRequestDto bookDto) {
         return bookService.update(id, bookDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete a book", description = "Remove a book from the catalog by its ID")
+    @Operation(summary = "Delete a book", description = "Delete a specific book from the library")
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteById(id);
     }
